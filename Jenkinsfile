@@ -4,10 +4,11 @@ pipeline{
         jdk 'myjava1'
         maven 'mymaven'
     }
-	agent {
-		label 'jnkns-agent03'
-	}
-      stages{
+	//agent {
+		//label 'jnkns-agent03'
+	//}
+    agent any  
+	stages{
            stage('Checkout'){
 	    
                steps{
