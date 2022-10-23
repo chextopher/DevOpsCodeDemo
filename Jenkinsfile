@@ -1,60 +1,59 @@
 
 pipeline{
-    tools{
-        jdk 'myjava1'
-        maven 'mymaven'
-    }
-	//agent {
-		//label 'jnkns-agent03'
-	//}
-    agent any  
-	stages{
-           stage('Checkout'){
+  tools{
+    jdk 'myjava1'
+    maven 'mymaven'
+  }
+  //agent {
+    //label 'jnkns-agent03'
+  //}
+  agent any  
+  stages{
+    stage('Checkout'){
 	    
-               steps{
-		 echo 'cloning..'
-                 git 'https://github.com/Sonal0409/DevOpsClassCodes.git'
-              }
-          }
-          stage('Compile'){
+      steps{
+        echo 'cloning..'
+        //git 'https://github.com/Sonal0409/DevOpsClassCodes.git'
+	  git 'git@github.com:chextopher/DevOpsCodeDemo.git'     
+      }
+    }
+    stage('Compile'){
              
-              steps{
-                  echo 'complie the code..'
-                  sh 'mvn compile'
-	      }
-          }
-          stage('CodeReview'){
+      steps{
+        echo 'complie the code..'
+        sh 'mvn compile'
+      }
+    }
+    stage('CodeReview'){
 		  
-              steps{
+      steps{
 		    
-		  echo 'codeReview'
-                  sh 'mvn pmd:pmd'
-              }
-          }
-           stage('UnitTest'){
+        echo 'codeReview'
+        sh 'mvn pmd:pmd'
+      }
+    }
+    stage('UnitTest'){
 		  
-              steps{
+      steps{
 	         
-                  sh 'mvn test'
-              }
+        sh 'mvn test'
+      }
           
-          }
-           stage('MetricCheck'){
+    }
+    stage('MetricCheck'){
               
-              steps{
-                  sh 'mvn cobertura:cobertura -Dcobertura.report.format=xml'
-              }
+      steps{
+        sh 'mvn cobertura:cobertura -Dcobertura.report.format=xml'
+      }
               
           	
-          }
-          stage('Package'){
+    }
+    stage('Package'){
 		  
-              steps{
+      steps{
 		  
-                  sh 'mvn package'
-              }
-          }
-	     
-          
+        sh 'mvn package'
       }
-}
+    }
+  }
+}	
