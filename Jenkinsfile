@@ -1,6 +1,6 @@
 
-pipeline{
-  tools{
+pipeline {
+  tools {
     jdk 'myjava1'
     maven 'mymaven'
   }
@@ -8,10 +8,10 @@ pipeline{
     //label 'jnkns-agent03'
   //}
   agent any  
-  stages{
+  stages {
     stage('Checkout'){
 	    
-      steps{
+      steps {
         echo 'cloning..'
         //git 'https://github.com/Sonal0409/DevOpsClassCodes.git'
 	  git 'git@github.com:chextopher/DevOpsCodeDemo.git'     
@@ -19,14 +19,14 @@ pipeline{
     }
     stage('Compile'){
              
-      steps{
+      steps {
         echo 'complie the code..'
         sh 'mvn compile'
       }
     }
     stage('CodeReview'){
 		  
-      steps{
+      steps {
 		    
         echo 'codeReview'
         sh 'mvn pmd:pmd'
@@ -34,7 +34,7 @@ pipeline{
     }
     stage('UnitTest'){
 		  
-      steps{
+      steps {
 	         
         sh 'mvn test'
       }
@@ -42,7 +42,7 @@ pipeline{
     }
     stage('MetricCheck'){
               
-      steps{
+      steps {
         sh 'mvn cobertura:cobertura -Dcobertura.report.format=xml'
       }
               
@@ -50,7 +50,7 @@ pipeline{
     }
     stage('Package'){
 		  
-      steps{
+      steps {
 		  
         sh 'mvn package'
       }
